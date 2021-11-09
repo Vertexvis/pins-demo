@@ -4,14 +4,11 @@ import { drawerClasses } from "@mui/material/Drawer";
 import { styled } from "@mui/material/styles";
 import React from "react";
 
-import { FileData } from "../lib/files";
 import { Metadata } from "../lib/metadata";
 import { RightDrawerWidth } from "./Layout";
 import { MetadataProperties } from "./MetadataProperties";
-import { RecentFiles } from "./RecentFiles";
 
 interface Props {
-  readonly files: FileData[];
   readonly metadata?: Metadata;
   readonly open: boolean;
 }
@@ -20,7 +17,7 @@ const Title = styled((props) => <Typography variant="body2" {...props} />)(
   () => ({ textTransform: "uppercase" })
 );
 
-export function RightDrawer({ files, metadata, open }: Props): JSX.Element {
+export function RightDrawer({ metadata, open }: Props): JSX.Element {
   return (
     <Drawer
       anchor="right"
@@ -38,12 +35,6 @@ export function RightDrawer({ files, metadata, open }: Props): JSX.Element {
           <Title>Metadata Properties</Title>
         </AccordionSummary>
         <MetadataProperties metadata={metadata} />
-      </Accordion>
-      <Accordion>
-        <AccordionSummary expandIcon={<ExpandMore />}>
-          <Title>Recent Files</Title>
-        </AccordionSummary>
-        <RecentFiles files={files} />
       </Accordion>
     </Drawer>
   );
