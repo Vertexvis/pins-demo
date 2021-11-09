@@ -1,7 +1,7 @@
 //http://bl.ocks.org/telic/9376360
 // The bigger the factor, the more smooth the trend
-export default function SmoothRandom(factor: number): () => number {
-  let last = .7;
+export default function SmoothRandom(factor: number, initial = .7): () => number {
+  let last = initial;
   const halfEnvelope = 1 / factor / 2;
 
   return function () {

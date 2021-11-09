@@ -30,7 +30,7 @@ export function RightDrawer({ metadata, open }: Props): JSX.Element {
       }}
       variant="persistent"
     >
-      <Accordion>
+      <Accordion defaultExpanded={true}>
         <AccordionSummary expandIcon={<ExpandMore />}>
           <Title>Metadata Properties</Title>
         </AccordionSummary>

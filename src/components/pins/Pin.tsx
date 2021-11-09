@@ -3,12 +3,14 @@ import React from "react";
 import { Line } from "react-chartjs-2";
 
 import SmoothRandom from "../../lib/smooth-random";
-import styles from "./SvgPin.module.css";
+import styles from "./Pin.module.css";
 
 type PinProps = {
   readonly text: string;
   readonly position: string;
   readonly onClick?: (name: string) => void;
+  readonly startingValue?: number;
+  readonly smoothingFactor?: number;
 };
 
 function getColor(value: number) {
@@ -17,7 +19,7 @@ function getColor(value: number) {
   return ["hsl(", hue, ",100%,50%)"].join("");
 }
 
-export function SvgPin({ text, position }: PinProps): JSX.Element {
+export function Pin({ text, position, startingValue, smoothingFactor }: PinProps): JSX.Element {
   const [data, setData] = React.useState({
     labels: new Array<string>(),
     datasets: [
@@ -34,24 +36,24 @@ export function SvgPin({ text, position }: PinProps): JSX.Element {
   const [val, setVal] = React.useState(0);
 
   React.useEffect(() => {
-    const sm = SmoothRandom(2);
+    const sm = SmoothRandom(smoothingFactor || 7, startingValue);
     const i = setInterval(() => {
-      const next = sm();
+      const next = sm() * 100;
       setVal(next);
-      const color = getColor(1 - next);
+      const color = getColor(1 - next / 100);
 
       const newLables =
-        data.labels.length === 100
+        data.labels.length === 30
           ? data.labels.slice(1).concat(new Date().toLocaleTimeString())
           : [...data.labels, new Date().toLocaleTimeString()];
 
       const newData =
-        data.labels.length === 100
+        data.labels.length === 30
           ? data.datasets[0].data.slice(1).concat(next)
           : [...data.datasets[0].data, next];
 
       const newPointBackgroundColors =
-        data.labels.length === 100
+        data.labels.length === 30
           ? data.datasets[0].pointBackgroundColor.slice(1).concat(color)
           : [...data.datasets[0].pointBackgroundColor, color];
 
@@ -67,10 +69,10 @@ export function SvgPin({ text, position }: PinProps): JSX.Element {
           },
         ],
       });
-    }, 3000);
+    }, 1000);
 
     return () => clearInterval(i);
-  }, [setVal, data]);
+  }, [setVal, data, startingValue]);
 
   const options = {
     elements: {
@@ -109,27 +111,16 @@ export function SvgPin({ text, position }: PinProps): JSX.Element {
     },
   };
 
+  const color = getColor(1 - val / 100);
   return (
     <VertexViewerDomElement positionJson={position} className={styles.pin}>
       <div>
-        <p className={styles.value} style={{ backgroundColor: getColor(1 - val) }}>{val.toFixed(3)}</p>
-        <div className={styles.down} style={{ borderTopColor: getColor(1 - val)}}></div>
-        {/* <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
-          fill={getColor(1 - val)}
-          className={styles.pinSvg}
-        >
-          <path
-            fillRule="evenodd"
-            d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-            clipRule="evenodd"
-          />
-        </svg> */}
+        <p className={styles.value} style={{ backgroundColor: color }}>
+          {val.toFixed(3)}
+        </p>
+        <div className={styles.down} style={{ borderTopColor: color }}></div>
         <div className={styles.info}>
-          <h4 className={styles.title}>
-            {text}
-          </h4>
+          <h4 className={styles.title}>{text}</h4>
           <div className={styles.content}>
             <Line data={data} options={options} />
           </div>
