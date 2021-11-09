@@ -1,4 +1,4 @@
-import { applyPolyfills, defineCustomElements } from "@vertexvis/viewer-react";
+import {defineCustomElements} from "@vertexvis/viewer/loader";
 import React from "react";
 
 interface Viewer {
@@ -6,17 +6,13 @@ interface Viewer {
   readonly isReady: boolean;
 }
 
+
 export function useViewer(): Viewer {
   const [isReady, setIsReady] = React.useState(false);
 
   React.useEffect(() => {
-    async function loadComponents() {
-      await applyPolyfills();
-      await defineCustomElements();
-      setIsReady(true);
-    }
-
-    loadComponents();
+    defineCustomElements()
+    setIsReady(true);
   }, []);
 
   return { ref: React.useRef<HTMLVertexViewerElement>(null), isReady };

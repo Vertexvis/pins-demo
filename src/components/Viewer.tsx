@@ -1,15 +1,17 @@
 /* @jsx jsx */ /** @jsxRuntime classic */ import { jsx } from "@emotion/react";
 import { vertexvis } from "@vertexvis/frame-streaming-protos";
 import type { TapEventDetails } from "@vertexvis/viewer";
+import { JSX as ViewerJSX } from "@vertexvis/viewer";
 import {
-  JSX as ViewerJSX,
   VertexViewer,
+  VertexViewerDomRenderer,
   VertexViewerToolbar,
   VertexViewerViewCube,
 } from "@vertexvis/viewer-react";
 import React from "react";
 
 import { StreamCredentials } from "../lib/config";
+import { SvgPin } from "./pins/SvgPin";
 import { ViewerSpeedDial } from "./ViewerSpeedDial";
 
 interface ViewerProps extends ViewerJSX.VertexViewer {
@@ -47,6 +49,7 @@ function UnwrappedViewer({
       css={{ height: "100%", width: "100%" }}
       ref={viewer}
       src={`urn:vertexvis:stream-key:${credentials.streamKey}`}
+      depthBuffers="all"
       {...props}
     >
       <VertexViewerToolbar placement="top-right">
@@ -59,6 +62,11 @@ function UnwrappedViewer({
       <VertexViewerToolbar placement="bottom-right">
         <ViewerSpeedDial viewer={viewer} />
       </VertexViewerToolbar>
+      <VertexViewerDomRenderer drawMode="2d">
+        <SvgPin text="Main Shaft" position={`[6500, 23530, 14800]`} />
+        <SvgPin text="Brake" position={`[5476, 23840, 14760]`} />
+        <SvgPin text="Generator" position={`[4800, 23900, 14850]`} />
+      </VertexViewerDomRenderer>
     </VertexViewer>
   );
 }

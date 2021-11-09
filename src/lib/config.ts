@@ -28,10 +28,10 @@ export const Config: Configuration = {
   },
 };
 
-// Vertex Valve
+// Wind Turbine
 export const DefaultCredentials: StreamCredentials = {
   clientId: "08F675C4AACE8C0214362DB5EFD4FACAFA556D463ECA00877CB225157EF58BFA",
-  streamKey: "Eh96kzXEppNfcxj5gbbqdJ9oUdQPB7hXzHrU",
+  streamKey: "wRpxNYMTKcHaD73mwRvER1b-rqYALjB7Rgk9",
 };
 
 export function head<T>(items?: T | T[]): T | undefined {

@@ -1,0 +1,84 @@
+.pin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.pinSvg {
+    height: 25px;
+    width: 25px;    
+}
+
+.text {
+    font-weight: bold;
+    font-Family: Arial, Helvetica, sans-serif;
+}
+
+.pin[occluded] {
+    opacity: 0;
+}
+
+.pin:hover .info {
+    opacity: 1;
+    left: -70px
+}
+
+.pin > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.info {
+    display: flex;
+    width: 200px;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 10px rgba(0,0,0,.4);
+    flex-direction: column;
+    white-space: nowrap;
+    position: absolute;
+    opacity: 0;    
+    background-color: white;
+    font-size: .8rem;
+    font-weight: bold;
+    left: 9999999px;
+    top: 40px;
+    transition: opacity .2s cubic-bezier(0.215, 0.610, 0.355, 1);
+}   
+
+.content {
+    padding: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.title {
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    width: 100%;
+    border-bottom: 1px solid #aaa;
+    padding: 5px 10px;
+    margin: auto;
+
+}
+
+.value {
+    padding: 3px 5px;
+    margin: 0;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+.down {
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    
+    border-top: 10px solid;
+    margin-top: -1px;
+}
