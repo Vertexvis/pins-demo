@@ -12,12 +12,12 @@ export default function Index(props: Props): JSX.Element {
   return <Home {...props} />;
 }
 
-export async function getServerSideProps(
+export function getServerSideProps(
   context: GetServerSidePropsContext
-): Promise<GetServerSidePropsResult<Props>> {
+): GetServerSidePropsResult<Props> {
   const empty = { props: { config: Config } };
   const host = context.req.headers.host;
   if (!host) return empty;
 
-  return empty
+  return empty;
 }

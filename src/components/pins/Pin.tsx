@@ -1,6 +1,8 @@
+import "chart.js/auto";
+
 import { VertexViewerDomElement } from "@vertexvis/viewer-react";
 import React from "react";
-import { Line } from "react-chartjs-2";
+import { Chart } from "react-chartjs-2";
 
 import SmoothRandom from "../../lib/smooth-random";
 import styles from "./Pin.module.css";
@@ -14,12 +16,17 @@ type PinProps = {
 };
 
 function getColor(value: number) {
-  //value from 0 to 1
+  // Value from 0 to 1
   const hue = ((1 - value) * 120).toString(10);
   return ["hsl(", hue, ",100%,50%)"].join("");
 }
 
-export function Pin({ text, position, startingValue, smoothingFactor }: PinProps): JSX.Element {
+export function Pin({
+  text,
+  position,
+  startingValue,
+  smoothingFactor,
+}: PinProps): JSX.Element {
   const [data, setData] = React.useState({
     labels: new Array<string>(),
     datasets: [
@@ -40,9 +47,8 @@ export function Pin({ text, position, startingValue, smoothingFactor }: PinProps
     const i = setInterval(() => {
       const next = sm() * 100;
       setVal(next);
-      const color = getColor(1 - next / 100);
 
-      const newLables =
+      const newLabels =
         data.labels.length === 30
           ? data.labels.slice(1).concat(new Date().toLocaleTimeString())
           : [...data.labels, new Date().toLocaleTimeString()];
@@ -52,13 +58,14 @@ export function Pin({ text, position, startingValue, smoothingFactor }: PinProps
           ? data.datasets[0].data.slice(1).concat(next)
           : [...data.datasets[0].data, next];
 
+      const c = getColor(1 - next / 100);
       const newPointBackgroundColors =
         data.labels.length === 30
-          ? data.datasets[0].pointBackgroundColor.slice(1).concat(color)
-          : [...data.datasets[0].pointBackgroundColor, color];
+          ? data.datasets[0].pointBackgroundColor.slice(1).concat(c)
+          : [...data.datasets[0].pointBackgroundColor, c];
 
       setData({
-        labels: newLables,
+        labels: newLabels,
         datasets: [
           {
             data: newData,
@@ -72,44 +79,7 @@ export function Pin({ text, position, startingValue, smoothingFactor }: PinProps
     }, 1000);
 
     return () => clearInterval(i);
-  }, [setVal, data, startingValue]);
-
-  const options = {
-    elements: {
-      line: {
-        tension: 1,
-        borderWidth: 1,
-      },
-      point: {
-        radius: 2,
-      },
-    },
-    plugins: {
-      legend: {
-        display: false,
-      },
-    },
-    scales: {
-      y: {
-        grid: {
-          display: false,
-        },
-        beginAtZero: true,
-        ticks: {
-          display: true,
-        },
-      },
-      x: {
-        grid: {
-          display: false,
-        },
-        ticks: {
-          display: false,
-          callback: (data: any) => data.toFixed(3),
-        },
-      },
-    },
-  };
+  }, [setVal, data, startingValue, smoothingFactor]);
 
   const color = getColor(1 - val / 100);
   return (
@@ -122,7 +92,47 @@ export function Pin({ text, position, startingValue, smoothingFactor }: PinProps
         <div className={styles.info}>
           <h4 className={styles.title}>{text}</h4>
           <div className={styles.content}>
-            <Line data={data} options={options} />
+            <Chart
+              type="line"
+              data={data}
+              options={{
+                elements: {
+                  line: {
+                    tension: 1,
+                    borderWidth: 1,
+                  },
+                  point: {
+                    radius: 2,
+                  },
+                },
+                plugins: {
+                  legend: {
+                    display: false,
+                  },
+                },
+                scales: {
+                  y: {
+                    grid: {
+                      display: false,
+                    },
+                    beginAtZero: true,
+                    ticks: {
+                      display: true,
+                    },
+                  },
+                  x: {
+                    grid: {
+                      display: false,
+                    },
+                    ticks: {
+                      display: false,
+                      callback: (d: string | number) =>
+                        typeof d === "string" ? d : d.toFixed(3),
+                    },
+                  },
+                },
+              }}
+            />
           </div>
         </div>
       </div>

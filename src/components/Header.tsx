@@ -1,4 +1,5 @@
-import { Box, Link } from "@mui/material";
+import Box from "@mui/material/Box";
+import Link from "@mui/material/Link";
 import React from "react";
 
 export function Header(): JSX.Element {
