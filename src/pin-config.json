@@ -1,0 +1,34 @@
+{
+  "cameras": [
+    {
+      "type": "camera",
+      "id": "main-shaft-livestream.mp4",
+      "position": [6800, 23900, 15150]
+    },
+    {
+      "type": "camera",
+      "id": "generator-livestream.mp4",
+      "position": [5000, 23840, 15150]
+    }
+  ],
+  "data": [
+    {
+      "type": "data",
+      "label": "Main Shaft",
+      "position": [6500, 23530, 14800],
+      "smoothing": 4
+    },
+    {
+      "type": "data",
+      "label": "Brake",
+      "position": [5476, 23840, 14760],
+      "smoothing": 6,
+      "startingValue": 0.2
+    },
+    {
+      "type": "data",
+      "label": "Generator",
+      "position": [4800, 23900, 14850]
+    }
+  ]
+}
