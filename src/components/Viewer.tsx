@@ -11,7 +11,10 @@ import {
 import React from "react";
 
 import { StreamCredentials } from "../lib/config";
+import pins from "../pin-config.json";
+import { CameraPin } from "./pins/CameraPin";
 import { Pin } from "./pins/Pin";
+import { VideoPlayer } from "./VideoPlayer";
 import { ViewerSpeedDial } from "./ViewerSpeedDial";
 
 interface ViewerProps extends ViewerJSX.VertexViewer {
@@ -43,13 +46,15 @@ function UnwrappedViewer({
   viewer,
   ...props
 }: ViewerProps): JSX.Element {
+  const [video, setVideo] = React.useState<string | undefined>();
+
   return (
     <VertexViewer
       clientId={credentials.clientId}
       css={{ height: "100%", width: "100%" }}
       ref={viewer}
       src={`urn:vertexvis:stream-key:${credentials.streamKey}`}
-      depthBuffers="all"
+      depthBuffers="final"
       {...props}
     >
       <VertexViewerToolbar placement="top-right">
@@ -63,10 +68,26 @@ function UnwrappedViewer({
         <ViewerSpeedDial viewer={viewer} />
       </VertexViewerToolbar>
       <VertexViewerDomRenderer drawMode="2d">
-        <Pin text="Main Shaft" position={`[6500, 23530, 14800]`} smoothingFactor={4} />
-        <Pin text="Brake" position={`[5476, 23840, 14760]`} startingValue={0.2} smoothingFactor={6} />
-        <Pin text="Generator" position={`[4800, 23900, 14850]`} />
+        {pins.cameras.map((p, i) => (
+          <CameraPin
+            key={`camera-${i}`}
+            id={p.id}
+            position={JSON.stringify(p.position)}
+            onClick={setVideo}
+          />
+        ))}
+
+        {pins.data.map((p, i) => (
+          <Pin
+            key={`data-${i}`}
+            text={p.label}
+            position={JSON.stringify(p.position)}
+            smoothingFactor={p.smoothing}
+            startingValue={p.startingValue}
+          />
+        ))}
       </VertexViewerDomRenderer>
+      <VideoPlayer id={video} onClose={() => setVideo(undefined)} />
     </VertexViewer>
   );
 }

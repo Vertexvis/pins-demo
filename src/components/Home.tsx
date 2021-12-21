@@ -73,8 +73,7 @@ export function Home({ config: { network } }: Props): JSX.Element {
       }
       rightDrawer={<RightDrawer metadata={metadata} open />}
       rightDrawerWidth={RightDrawerWidth}
-    >      
-    </Layout>
+    ></Layout>
   ) : (
     <></>
   );
