@@ -11,7 +11,7 @@
     "@mui/material": "^5.9.1",
     "@vertexvis/api-client-node": "^0.17.0",
     "@vertexvis/viewer-react": "^0.14.0",
-    "chart.js": "^3.8.0",
+    "chart.js": "^3.8.2",
     "next": "^12.2.0",
     "react": "^17.0.2",
     "react-chartjs-2": "^4.2.0",
