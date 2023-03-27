@@ -9,7 +9,7 @@
     "@emotion/styled": "^11.10.6",
     "@mui/icons-material": "^5.11.9",
     "@mui/material": "^5.11.9",
-    "@vertexvis/api-client-node": "^0.20.5",
+    "@vertexvis/api-client-node": "^0.20.6",
     "@vertexvis/viewer-react": "^0.14.0",
     "chart.js": "^3.8.2",
     "next": "^12.2.3",
