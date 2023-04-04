@@ -31,7 +31,7 @@ export const Config: Configuration = {
 // Wind Turbine
 export const DefaultCredentials: StreamCredentials = {
   clientId: "08F675C4AACE8C0214362DB5EFD4FACAFA556D463ECA00877CB225157EF58BFA",
-  streamKey: "twGiaVXaTzMX0A7QEQa6KAFGesH7tJM1Fs_7",
+  streamKey: "OHCC5wLnH9SISYJQcaprKZrSbhKU7FSmBAea",
 };
 
 export function head<T>(items?: T | T[]): T | undefined {
