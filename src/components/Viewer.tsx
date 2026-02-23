@@ -66,8 +66,17 @@ function UnwrappedViewer({
         <ViewerSpeedDial viewer={viewer} />
       </VertexViewerToolbar>
       <VertexViewerDomRenderer drawMode="2d">
-        <Pin text="Main Shaft" position={`[6500, 23530, 14800]`} smoothingFactor={4} />
-        <Pin text="Brake" position={`[5476, 23840, 14760]`} startingValue={0.2} smoothingFactor={6} />
+        <Pin
+          text="Main Shaft"
+          position={`[6500, 23530, 14800]`}
+          smoothingFactor={4}
+        />
+        <Pin
+          text="Brake"
+          position={`[5476, 23840, 14760]`}
+          startingValue={0.2}
+          smoothingFactor={6}
+        />
         <Pin text="Generator" position={`[4800, 23900, 14850]`} />
       </VertexViewerDomRenderer>
     </VertexViewer>
