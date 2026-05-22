@@ -12,7 +12,7 @@
     "@vertexvis/api-client-node": "^0.34.0",
     "@vertexvis/viewer-react": "^0.24.2",
     "chart.js": "^3.8.2",
-    "next": "^15.5.12",
+    "next": "^15.5.18",
     "react": "^18.3.1",
     "react-chartjs-2": "^4.2.0",
     "react-dom": "^18.3.1",
@@ -36,9 +36,11 @@
   },
   "resolutions": {
     "ajv": "^8.18.0",
-    "axios": "^1.13.2",
+    "axios": "1.15.2",
     "cross-spawn": "^7.0.5",
-    "protobufjs": "^7.2.5",
+    "fast-uri": "3.1.2",
+    "flatted": "3.4.2",
+    "protobufjs": "7.5.6",
     "semver": "^7.3.5",
     "word-wrap": "^1.2.5"
   },
